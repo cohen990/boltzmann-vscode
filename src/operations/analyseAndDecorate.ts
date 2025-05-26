@@ -2,7 +2,7 @@ import { parseAnalysis } from "../analysis/analysisParser";
 import { generateHighlights } from "../highlights/highlights";
 import { analyseFile } from "../analysis/file";
 import { Logger } from "../logger";
-import { Highlight } from "../highlights/highlightsSingleton";
+import { Highlight } from "../state/highlightsSingleton";
 import { Option} from "../option";
 
 export const analyseAndDecorate: (logger: Logger) => Option<Highlight[]> = (logger: Logger) => {

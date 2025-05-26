@@ -9,15 +9,27 @@ export class Logger {
     }
 
     info(message: string, ...args: unknown[]) {
+        if(args.length === 0) {
+            this.outputChannel.info(message);
+            return;
+        }
         this.outputChannel.info(message, args);
     }
 
     debug(message: string, ...args: unknown[]) {
-        this.outputChannel.debug(message, args);
+        if(args.length === 0) {
+            this.outputChannel.debug(message);
+            return;
+        }
+        this.outputChannel.debug(message, args || undefined);
 	}
 
 	trace(message: string, ...args: unknown[]) {
-        this.outputChannel.trace(message, args);
+        if(args.length === 0) {
+            this.outputChannel.trace(message);
+            return;
+        }
+        this.outputChannel.trace(message, args || undefined);
 	}
 
     error(error: unknown) {

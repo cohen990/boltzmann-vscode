@@ -1,7 +1,7 @@
 import { window } from "vscode";
 import { Analysis } from "../analysis/analysisParser";
 import { Logger } from "../logger";
-import { Highlight } from "./highlightsSingleton";
+import { Highlight } from "../state/highlightsSingleton";
 
 export function generateHighlights(analysis: Analysis, logger: Logger) {
 	let decorations: Highlight[] = [];
@@ -12,12 +12,8 @@ export function generateHighlights(analysis: Analysis, logger: Logger) {
 
 		let red = Math.round(255 * normalised_complexity);
 		let green = Math.round(255 * (1 - normalised_complexity));
-		let alpha = Math.round(30 * normalised_complexity);
-		if (alpha > 30) {
-			logger.info(`Setting alpha: ${alpha}`);
-		}
+		let alpha = Math.round(20 * normalised_complexity);
 		const backgroundColor = `#${toHex(red)}${toHex(green)}00${toHex(alpha)}`;
-		logger.info(backgroundColor);
 		const decoration = window.createTextEditorDecorationType({
 			backgroundColor
 		});

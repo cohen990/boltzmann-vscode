@@ -1,17 +1,19 @@
 import { TextEditor, window } from "vscode";
-import { Highlights } from "../highlights/highlightsSingleton";
+import { Highlights } from "../state/highlightsSingleton";
 import { analyseAndDecorate } from "../operations/analyseAndDecorate";
 import { Logger } from "../logger";
+import { Editor } from "../state/editor";
 
  export class TextEditorEvents {
 	static registerOnDidChange(logger: Logger) {
         window.onDidChangeVisibleTextEditors((event: readonly TextEditor[]) => {
             if(event.length > 1) {
-                Highlights.Singleton().deregisterAll();
-                const highlights = analyseAndDecorate(logger);
+                Editor.SetCurrentWindow(event[1]);
 
+                Highlights.Singleton().deregisterAll(logger);
+                const highlights = analyseAndDecorate(logger);
                 highlights.then(
-                    (inner) => Highlights.Singleton().register(inner, event[1])
+                    (inner) => Highlights.Singleton().register(inner, Editor.CurrentWindow())
                 );
             }
         });

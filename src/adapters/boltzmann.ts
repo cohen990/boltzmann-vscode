@@ -6,11 +6,11 @@ type ExecuteAnalyser = (options: ExecutionOptions, logger: Logger) => Result<str
 
 export type ExecutionOptions = { folder: string, filePath: string}
 
+export const EXECUTABLE_PATH = "./boltzmann_analyser";
 export const BOLTZMANN_STORAGE_PATH = ".boltzmann";
 
 export const executeAnalyser: ExecuteAnalyser = (options: ExecutionOptions, logger: Logger) => {
-	const executable = '/home/samanthacohen/git/boltzmann/target/debug/boltzmann_analyser';
-	const command = `${executable} file ${options.folder} ${options.filePath} ${options.folder}`;
+	const command = `${EXECUTABLE_PATH} file ${options.folder} ${options.filePath} ${options.folder}`;
 
 	try {
 		logger.info("Executing command", command);
