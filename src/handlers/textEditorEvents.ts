@@ -6,10 +6,11 @@ import { Editor } from "../state/editor";
 
 export class TextEditorEvents {
     static registerOnDidChange(logger: Logger) {
-        window.onDidChangeVisibleTextEditors((event: readonly TextEditor[]) => {
+        window.onDidChangeVisibleTextEditors((editors: readonly TextEditor[]) => {
             if (Highlights.Disabled()) { return; }
-            if (event.length > 1) {
-                Editor.SetCurrentWindow(event[1]);
+            if (editors.length > 1) {
+                const textEditor = editors[1];
+                Editor.SetCurrentWindow(textEditor);
 
                 Highlights.Singleton().deregisterAll(logger);
                 const highlights = analyseAndDecorate(logger);

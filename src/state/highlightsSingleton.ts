@@ -3,7 +3,6 @@ import { Option } from "../option";
 import { Logger } from "../logger";
 
 export type Highlight = { decoration: TextEditorDecorationType, range: Range }
-type Highlightable = TextEditor
 
 export class Highlights {
     private inner: Highlight[] = [];
@@ -39,7 +38,7 @@ export class Highlights {
         this.inner.forEach(x => x.decoration.dispose());
     }
     
-    public register(highlights: Highlight[], textEditor: Option<Highlightable>) {
+    public register(highlights: Highlight[], textEditor: Option<TextEditor>) {
         if(!this.enabled) { return; }
         this.inner = highlights;
         this.inner.forEach(x => textEditor.then((inner) => inner.setDecorations(x.decoration, [x.range])));

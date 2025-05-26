@@ -6,7 +6,7 @@ type ExecuteAnalyser = (options: ExecutionOptions, logger: Logger) => Result<str
 
 export type ExecutionOptions = { folder: string, filePath: string}
 
-export const EXECUTABLE_PATH = "./boltzmann_analyser";
+export const EXECUTABLE_PATH = "/home/samanthacohen/git/boltzmann/target/debug/boltzmann_analyser";
 export const BOLTZMANN_STORAGE_PATH = ".boltzmann";
 
 export const executeAnalyser: ExecuteAnalyser = (options: ExecutionOptions, logger: Logger) => {
