@@ -16,8 +16,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "boltzmann-analyser.Highlight",
-        "title": "Boltzmann Analyser: Highlight"
+        "command": "boltzmann-analyser.HighlightEnable",
+        "title": "Boltzmann Analyser: Enable Highlighting"
+      },
+      {
+        "command": "boltzmann-analyser.HighlightDisable",
+        "title": "Boltzmann Analyser: Disable Highlighting"
       }
     ]
   },

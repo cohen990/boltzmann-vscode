@@ -10,9 +10,9 @@ export function generateHighlights(analysis: Analysis, logger: Logger) {
 		let normalised_complexity = (token.complexity - analysis.minimumComplexity) / (analysis.maximumComplexity - analysis.minimumComplexity);
 		if (normalised_complexity === 0) { continue; }
 
-		let red = Math.round(255 * normalised_complexity);
-		let green = Math.round(255 * (1 - normalised_complexity));
-		let alpha = Math.round(20 * normalised_complexity);
+		let red = toColorDecimal(normalised_complexity);
+		let green = toColorDecimal(1 - normalised_complexity);
+		let alpha = toColorDecimal(normalised_complexity / 10);
 		const backgroundColor = `#${toHex(red)}${toHex(green)}00${toHex(alpha)}`;
 		const decoration = window.createTextEditorDecorationType({
 			backgroundColor
@@ -21,6 +21,10 @@ export function generateHighlights(analysis: Analysis, logger: Logger) {
 	}
 
 	return decorations;
+}
+
+function toColorDecimal(normalisedValue: number){
+	return Math.round(255*normalisedValue);
 }
 
 function toHex(decimal: number): string {

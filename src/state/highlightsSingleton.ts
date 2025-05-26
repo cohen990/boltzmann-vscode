@@ -7,6 +7,7 @@ type Highlightable = TextEditor
 
 export class Highlights {
     private inner: Highlight[] = [];
+    private enabled: boolean = false;
     
     static Singleton(){
         if(highlights === undefined) {
@@ -15,6 +16,23 @@ export class Highlights {
         
         return highlights;
     }
+
+    static Disabled(): boolean {
+        return !this.Singleton().enabled;
+    }
+
+    static Enabled() {
+        return this.Singleton().enabled;
+    }
+
+	static Enable() {
+        this.Singleton().enabled = true;
+	}
+
+	static Disable() {
+        this.Singleton().enabled = false;
+	}
+
     
     public deregisterAll(logger: Logger) {
         logger.info("disposing all decorations");
@@ -22,9 +40,11 @@ export class Highlights {
     }
     
     public register(highlights: Highlight[], textEditor: Option<Highlightable>) {
+        if(!this.enabled) { return; }
         this.inner = highlights;
         this.inner.forEach(x => textEditor.then((inner) => inner.setDecorations(x.decoration, [x.range])));
     }
+
 }
 
 let highlights: Highlights | undefined = undefined;

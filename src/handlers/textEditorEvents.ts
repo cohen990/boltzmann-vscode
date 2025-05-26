@@ -4,10 +4,11 @@ import { analyseAndDecorate } from "../operations/analyseAndDecorate";
 import { Logger } from "../logger";
 import { Editor } from "../state/editor";
 
- export class TextEditorEvents {
-	static registerOnDidChange(logger: Logger) {
+export class TextEditorEvents {
+    static registerOnDidChange(logger: Logger) {
         window.onDidChangeVisibleTextEditors((event: readonly TextEditor[]) => {
-            if(event.length > 1) {
+            if (Highlights.Disabled()) { return; }
+            if (event.length > 1) {
                 Editor.SetCurrentWindow(event[1]);
 
                 Highlights.Singleton().deregisterAll(logger);

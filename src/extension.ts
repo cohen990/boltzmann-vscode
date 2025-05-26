@@ -8,7 +8,8 @@ export function activate(context: ExtensionContext) {
 	const logger = new Logger("Boltzmann Analyser");
 	TextEditorEvents.registerOnDidChange(logger);
 	WorkspaceEvents.registerOnDidSaveTextDocument(logger);
-	HighlightCommand.register(context, logger);
+	HighlightCommand.registerEnable(context, logger);
+	HighlightCommand.registerDisable(context, logger);
 }
 
 export function deactivate() {}
