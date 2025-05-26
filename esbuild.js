@@ -1,4 +1,5 @@
 const esbuild = require("esbuild");
+const copyPlugin =  require('esbuild-plugin-copy');
 
 const production = process.argv.includes('--production');
 const watch = process.argv.includes('--watch');
@@ -38,8 +39,15 @@ async function main() {
 		external: ['vscode'],
 		logLevel: 'silent',
 		plugins: [
-			/* add to the end of plugins array */
 			esbuildProblemMatcherPlugin,
+			copyPlugin.copy({
+				resolveFrom: 'cwd',
+				assets: {
+				from: ['./boltzmann_analyser'],
+				to: ['./dist'],
+				},
+				watch: true,
+			}),
 		],
 	});
 	if (watch) {
